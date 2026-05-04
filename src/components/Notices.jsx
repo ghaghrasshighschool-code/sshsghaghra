@@ -17,7 +17,7 @@ export default function Notices() {
                     description,
                     "fileUrl": attachment.asset->url
                 }`;
-                const data = await client.fetch(query);
+                const data = await client.fetch(query, {}, { useCdn: !showLoader });
                 setNotices(data);
             } catch (error) {
                 console.error("Error fetching notices:", error);
