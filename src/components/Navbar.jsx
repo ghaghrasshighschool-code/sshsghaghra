@@ -1,6 +1,5 @@
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
 export default function Navbar() {
     const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
 
@@ -30,18 +29,14 @@ export default function Navbar() {
                 <div className="hidden md:flex items-center space-x-8">
                     {['Home', 'About', 'Student', 'Teacher'].map((item) => (
                         (
-                            <NavLink 
+                            <a
                                 key={item} 
-                                to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
-                                className={({ isActive }) => `text-sm font-semibold transition-colors relative group ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`}
+                                href={`#${item.toLowerCase()}`} 
+                                className="text-sm font-semibold transition-colors relative group text-gray-600 hover:text-blue-600"
                             >
-                                {({ isActive }) => (
-                                    <>
-                                        {item}
-                                        <span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-                                    </>
-                                )}
-                            </NavLink>
+                                {item}
+                                <span className="absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all w-0 group-hover:w-full"></span>
+                            </a>
                         )
                     ))}
                 </div>
@@ -73,14 +68,18 @@ export default function Navbar() {
                                 {item}
                             </a>
                         ) : (
-                            <NavLink 
+                            <a 
                                 key={item} 
-                                to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
-                                className={({ isActive }) => `font-semibold text-lg border-b border-gray-50 pb-2 ${isActive ? 'text-blue-600' : 'text-gray-800 hover:text-blue-600'}`}
-                                onClick={() => setMobileMenuOpen(false)}
+                                href={`#${item.toLowerCase()}`} 
+                                className="font-semibold text-lg border-b border-gray-50 pb-2 text-gray-800 hover:text-blue-600"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setMobileMenuOpen(false);
+                                    document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+                                }}
                             >
                                 {item}
-                            </NavLink>
+                            </a>
                         )
                     ))}
                 </div>

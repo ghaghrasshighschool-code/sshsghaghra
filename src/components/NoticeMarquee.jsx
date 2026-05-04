@@ -14,7 +14,12 @@ export default function NoticeMarquee() {
                 console.error("Error fetching notices for marquee:", error);
             }
         };
+
         fetchNotices();
+
+        const subscription = client.listen('*[_type == "notice"]').subscribe(fetchNotices);
+
+        return () => subscription.unsubscribe();
     }, []);
 
     if (notices.length === 0) return null;

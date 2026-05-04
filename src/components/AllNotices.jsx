@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Bell, Calendar, Paperclip, Loader2, ArrowLeft } from 'lucide-react';
 import { client } from '../sanityClient';
-import { Link } from 'react-router-dom';
 
 export default function AllNotices() {
     const [notices, setNotices] = useState([]);
@@ -11,18 +10,18 @@ export default function AllNotices() {
     const ITEMS_PER_PAGE = 6;
 
     useEffect(() => {
-        const fetchNotices = async () => {
-            setIsLoading(true);
+        const fetchNotices = async (showLoader = true) => {
+            if (showLoader) setIsLoading(true);
             try {
                 const start = (page - 1) * ITEMS_PER_PAGE;
                 const end = start + ITEMS_PER_PAGE;
                 
                 // Fetch paginated notices and total count simultaneously
                 const query = `{
-                    "items": *[_type == "notice"] | order(date desc) [$start...$end] {
+                    "items": *[_type == "notice" && !(_id in path("drafts.**"))] | order(date desc) [$start...$end] {
                         _id, title, date, description, "fileUrl": attachment.asset->url
                     },
-                    "total": count(*[_type == "notice"])
+                    "total": count(*[_type == "notice" && !(_id in path("drafts.**"))])
                 }`;
                 const data = await client.fetch(query, { start, end });
                 setNotices(data.items);
@@ -33,7 +32,13 @@ export default function AllNotices() {
                 setIsLoading(false);
             }
         };
-        fetchNotices();
+
+        fetchNotices(true);
+
+        // Subscribe to changes to refresh the current page and total count
+        const subscription = client.listen('*[_type == "notice"]').subscribe(() => fetchNotices(false));
+
+        return () => subscription.unsubscribe();
     }, [page]);
 
     const totalPages = Math.ceil(totalNotices / ITEMS_PER_PAGE);
@@ -41,9 +46,16 @@ export default function AllNotices() {
     return (
         <section className="min-h-screen py-20 px-4 max-w-7xl mx-auto w-full">
             <div className="mb-8">
-                <Link to="/" className="flex items-center text-blue-600 hover:text-blue-800 font-semibold mb-6 transition-colors w-fit">
+                <a 
+                    href="#home" 
+                    className="flex items-center text-blue-600 hover:text-blue-800 font-semibold mb-6 transition-colors w-fit"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                >
                     <ArrowLeft className="h-5 w-5 mr-2" /> Back to Home
-                </Link>
+                </a>
                 <div className="flex items-center space-x-3 border-b border-gray-200 pb-4">
                     <Bell className="h-8 w-8 text-blue-600" />
                     <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">All Announcements</h1>

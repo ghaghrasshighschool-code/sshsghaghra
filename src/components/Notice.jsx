@@ -7,16 +7,18 @@ export default function Notice() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchNotices = async () => {
+        const fetchNotices = async (showLoader = true) => {
+            if (showLoader) setIsLoading(true);
             try {
-                const query = `*[_type == "notice" && !(_id in path("drafts.**"))] | order(date desc) {
+                const query = `*[_type == "notice" && !(_id in path("drafts.**"))] | order(date desc)[0...3] {
                     "id": _id,
                     title,
                     date,
                     description,
                     "attachmentUrl": attachment.asset->url
                 }`;
-                const data = await client.fetch(query);
+                // Bypassing CDN if we know a change just happened (showLoader is false)
+                const data = await client.fetch(query, {}, { useCdn: !showLoader });
                 setNotices(data);
             } catch (error) {
                 console.error("Error fetching notices:", error);
@@ -24,7 +26,13 @@ export default function Notice() {
                 setIsLoading(false);
             }
         };
-        fetchNotices();
+
+        fetchNotices(true);
+
+        // Listen for changes and refresh data without showing the spinner
+        const subscription = client.listen('*[_type == "notice"]').subscribe(() => fetchNotices(false));
+
+        return () => subscription.unsubscribe();
     }, []);
 
     return (

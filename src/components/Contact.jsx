@@ -1,5 +1,4 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export default function Contact() {
     const base = import.meta.env.BASE_URL;
@@ -49,9 +48,16 @@ export default function Contact() {
                         <ul className="space-y-3">
                             {['Home', 'About', 'Student', 'Teacher', 'Admissions'].map((item) => (
                                 <li key={item}>
-                                    <Link to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} className="text-gray-400 hover:text-white transition-colors text-sm">
+                                    <a 
+                                        href={`#${item.toLowerCase()}`} 
+                                        className="text-gray-400 hover:text-white transition-colors text-sm"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+                                        }}
+                                    >
                                         {item}
-                                    </Link>
+                                    </a>
                                 </li>
                             ))}
                         </ul>

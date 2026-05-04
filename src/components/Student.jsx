@@ -11,20 +11,23 @@ export default function Student() {
 
     // Fetch and group the notes from Sanity on page load
     useEffect(() => {
-        const fetchNotes = async () => {
+        const fetchNotes = async (showLoader = true) => {
+            if (showLoader) setIsLoading(true);
             try {
                 // Grab all notes and resolve their attached file's URL
-                const query = `*[_type == "note"] {
+                const query = `*[_type == "note" && !(_id in path("drafts.**"))] {
                     title,
                     className,
                     subject,
                     "fileUrl": file.asset->url
                 }`;
-                const notes = await client.fetch(query);
+                const notes = await client.fetch(query, {}, { useCdn: !showLoader });
                 
                 // Group the flat array into: Classes -> Subjects -> Notes
                 const grouped = [];
                 notes.forEach(note => {
+                    if (!note.className || !note.subject) return; // Skip incomplete data
+                    
                     let cls = grouped.find(c => c.name === note.className);
                     if (!cls) {
                         cls = { id: note.className.toLowerCase().replace(/\s+/g, '-'), name: note.className, subjects: [] };
@@ -47,7 +50,13 @@ export default function Student() {
                 setIsLoading(false);
             }
         };
-        fetchNotes();
+
+        fetchNotes(true);
+
+        // Add missing real-time listener for notes
+        const subscription = client.listen('*[_type == "note"]').subscribe(() => fetchNotes(false));
+
+        return () => subscription.unsubscribe();
     }, []);
 
     return (

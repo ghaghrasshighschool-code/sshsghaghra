@@ -7,7 +7,8 @@ export default function Teacher() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchTeachers = async () => {
+        const fetchTeachers = async (showLoader = true) => {
+            if (showLoader) setIsLoading(true);
             try {
                 const query = `*[_type == "teacher" && !(_id in path("drafts.**"))] | order(name asc) {
                     "id": _id,
@@ -17,7 +18,7 @@ export default function Teacher() {
                     role,
                     "imageUrl": image.asset->url
                 }`;
-                const data = await client.fetch(query);
+                const data = await client.fetch(query, {}, { useCdn: !showLoader });
                 setTeachersData(data);
             } catch (error) {
                 console.error("Error fetching teachers from Sanity:", error);
@@ -25,7 +26,10 @@ export default function Teacher() {
                 setIsLoading(false);
             }
         };
-        fetchTeachers();
+
+        fetchTeachers(true);
+        const subscription = client.listen('*[_type == "teacher"]').subscribe(() => fetchTeachers(false));
+        return () => subscription.unsubscribe();
     }, []);
 
     return (

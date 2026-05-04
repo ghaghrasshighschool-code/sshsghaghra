@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Bell, Calendar, Paperclip, Loader2 } from 'lucide-react';
 import { client } from '../sanityClient';
-import { Link } from 'react-router-dom';
 
 export default function Notices() {
     const [notices, setNotices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchNotices = async () => {
+        const fetchNotices = async (showLoader = true) => {
+            if (showLoader) setIsLoading(true);
             try {
-                // Fetch notices ordered by date, and resolve the attachment file URL
-                const query = `*[_type == "notice"] | order(date desc)[0...3] {
+                const query = `*[_type == "notice" && !(_id in path("drafts.**"))] | order(date desc)[0...3] {
                     _id,
                     title,
                     date,
@@ -26,7 +25,13 @@ export default function Notices() {
                 setIsLoading(false);
             }
         };
-        fetchNotices();
+
+        fetchNotices(true);
+
+        // Subscribe to real-time updates for notices
+        const subscription = client.listen('*[_type == "notice"]').subscribe(() => fetchNotices(false));
+
+        return () => subscription.unsubscribe();
     }, []);
 
     if (isLoading) {
@@ -46,9 +51,16 @@ export default function Notices() {
                     <Bell className="h-8 w-8 text-blue-600" />
                     <h2 className="text-3xl font-extrabold text-slate-900">Latest Announcements</h2>
                 </div>
-                <Link to="/notices" className="text-blue-600 hover:text-blue-800 font-semibold text-sm transition-colors flex items-center">
+                <a 
+                    href="#notices" 
+                    className="text-blue-600 hover:text-blue-800 font-semibold text-sm transition-colors flex items-center"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                >
                     View All Announcements &rarr;
-                </Link>
+                </a>
             </div>
             
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
