@@ -2,20 +2,16 @@ import About from "./components/About"
 import Hero from "./components/Hero"
 import Navbar from "./components/Navbar"
 import Contact from "./components/Contact"
+import NoticeMarquee from "./components/NoticeMarquee"
 import { useEffect } from "react";
-import Student from "./components/Student"
-import { Routes, Route, useLocation } from "react-router-dom"
-import Teacher from "./components/Teacher.jsx"
-import Notice from "./components/Notice.jsx"
-import AllNotices from "./components/AllNotices"
+import Student from "./components/Student";
+import Teacher from "./components/Teacher.jsx";
+import Notice from "./components/Notice.jsx";
+import AllNotices from "./components/AllNotices";
 
 function App() {
-  const { pathname } = useLocation();
-
-  // Automatically scroll to top whenever the URL changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  // No longer using react-router-dom for page navigation,
+  // so useLocation and the pathname-based useEffect are removed.
 
   useEffect(() => {
     const observerOptions = {
@@ -48,20 +44,28 @@ function App() {
       </div>
 
       <Navbar />
-      {/* Ensure the container has min-height so it intersects with the observer even if routes are loading */}
-      <div className="scroll-reveal opacity-0 translate-y-10 transition-all duration-1000 ease-out pb-12 min-h-[50vh]">
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <Notice />
-            </>
-          } />
-          <Route path="/about" element={<About />} />
-          <Route path="/student" element={<Student />} />
-          <Route path="/teacher" element={<Teacher />} />
-          <Route path="/notices" element={<AllNotices />} />
-        </Routes>
+      <NoticeMarquee />
+
+      {/* All sections are now rendered on a single page with unique IDs for navigation */}
+      <div id="home" className="scroll-reveal opacity-0 translate-y-10 transition-all duration-1000 ease-out pb-12 min-h-[50vh] pt-10">
+        <Hero />
+        <Notice />
+      </div>
+
+      <div id="about" className="scroll-reveal opacity-0 translate-y-10 transition-all duration-1000 ease-out pb-12 min-h-[50vh] pt-10">
+        <About />
+      </div>
+
+      <div id="student" className="scroll-reveal opacity-0 translate-y-10 transition-all duration-1000 ease-out pb-12 min-h-[50vh] pt-10">
+        <Student />
+      </div>
+
+      <div id="teacher" className="scroll-reveal opacity-0 translate-y-10 transition-all duration-1000 ease-out pb-12 min-h-[50vh] pt-10">
+        <Teacher />
+      </div>
+
+      <div id="notices" className="scroll-reveal opacity-0 translate-y-10 transition-all duration-1000 ease-out pb-12 min-h-[50vh] pt-10">
+        <AllNotices />
       </div>
       <Contact />
     </div>

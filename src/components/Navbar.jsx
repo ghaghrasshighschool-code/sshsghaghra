@@ -28,7 +28,7 @@ export default function Navbar() {
 
                 {/* items of navbar here */}
                 <div className="hidden md:flex items-center space-x-8">
-                    {['Home', 'About', 'Student', 'Teacher', 'Admin'].map((item) => (
+                    {['Home', 'About', 'Student', 'Teacher'].map((item) => (
                         (
                             <NavLink 
                                 key={item} 
@@ -58,7 +58,7 @@ export default function Navbar() {
                 )}
             </button>            {mobileMenuOpen && (
                 <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b border-gray-200 shadow-xl py-6 px-4 space-y-4 flex flex-col animate-in slide-in-from-top duration-300">
-                    {['Home', 'About', 'Contact', 'Student', 'Teacher', 'Admin'].map((item) => (
+                    {['Home', 'About', 'Contact', 'Student', 'Teacher'].map((item) => (
                         item === 'Contact' ? (
                             <a
                                 key={item}

@@ -1,5 +1,5 @@
 {
-  "homepage": "https://ghaghrasshighschool-code.github.io/sshsghaghra_schoolSite/",
+  "homepage": "https://ghaghrasshighschool-code.github.io/sshsghaghra/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist -u \"Deploy Bot <deploy@sshsghaghra.edu.in>\"",

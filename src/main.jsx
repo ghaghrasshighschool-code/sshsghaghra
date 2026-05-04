@@ -8,7 +8,7 @@ import { HashRouter } from 'react-router-dom'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* HashRouter is required for GitHub Pages so direct links/refreshes don't break */}
-    <HashRouter>
+    <HashRouter basename="/sshsghaghra">
       <App />
     </HashRouter>
   </StrictMode>,
