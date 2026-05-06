@@ -2,7 +2,7 @@
   "homepage": "https://ghaghrasshighschool-code.github.io/sshsghaghra/",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist --nojekyll",
     "build": "vite build",
     "dev": "vite",
     "studio": "sanity dev",

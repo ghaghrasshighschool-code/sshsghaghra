@@ -34,6 +34,15 @@ export default function Notices() {
         return () => subscription.unsubscribe();
     }, []);
 
+    // Security Helper: Validate that URLs are from a trusted source
+    const isSafeUrl = (url) => {
+        if (!url) return false;
+        try {
+            const parsed = new URL(url);
+            return parsed.protocol === 'https:' && parsed.hostname === 'cdn.sanity.io';
+        } catch { return false; }
+    };
+
     if (isLoading) {
         return (
             <div className="flex justify-center items-center py-20">
@@ -74,7 +83,7 @@ export default function Notices() {
                         {notice.description && (
                             <p className="text-gray-600 mb-6 grow">{notice.description}</p>
                         )}
-                        {notice.fileUrl && (
+                        {notice.fileUrl && isSafeUrl(notice.fileUrl) && (
                             <a href={`${notice.fileUrl}?dl=`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center space-x-2 text-sm font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-4 py-3 rounded-xl transition-colors mt-auto">
                                 <Paperclip className="h-4 w-4" />
                                 <span>Download Attachment</span>
