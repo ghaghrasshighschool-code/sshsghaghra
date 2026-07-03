@@ -28,10 +28,10 @@ export default function AboutSection() {
                     <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
                         Building a <span className="text-blue-600">Brighter Future</span> for Every Student
                     </h1>
-                    <p className="text-gray-600 text-lg leading-8">
+                    <p className="text-slate-600 text-lg leading-8">
                         At SS Highschool Ghaghra, we believe in holistic development. Our dedicated faculty and state-of-the-art facilities ensure that every child receives the best education and personal growth opportunities.
                     </p>
-                    <ul className="space-y-3 text-gray-700 font-medium">
+                    <ul className="space-y-3 text-slate-700 font-medium">
                         <li className="flex items-center gap-2">
                             <div className="h-2 w-2 bg-blue-600 rounded-full"></div> Quality Education
                         </li>

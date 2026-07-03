@@ -21,11 +21,11 @@ export default function Hero() {
     }, [images.length]);
 
     return (
-        <section id="Home" className="min-h-screen flex items-center pt-16 px-4 max-w-7xl mx-auto">
+        <section id="Home" className="flex items-center py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
                 
                 {/* Left Side: Image Scroller (Dynamic Aspect Ratio) */}
-                <div className="relative aspect-4/5 md:aspect-4/3 rounded-2xl overflow-hidden shadow-2xl group">
+                <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl group">
                     {images.length > 0 ? (
                     images.map((img, index) => (
                         <div
@@ -65,12 +65,12 @@ export default function Hero() {
                 </div>
 
                 {/* Right Side: About Content */}
-                <div className="space-y-6">
+                <div className="space-y-8">
                     <h2 className="text-blue-600 font-bold tracking-wider uppercase text-sm">About Our School</h2>
                     <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight">
                         Welcome to <span className="text-blue-600">SSHighschool Ghaghra</span>
                     </h1>
-                    <p className="text-gray-600 text-lg leading-relaxed">
+                    <p className="text-slate-600 text-lg leading-relaxed">
                         Empowering minds and shaping futures since our inception. We provide a nurturing environment where students excel academically, socially, and creatively.
                     </p>
                     <div className="flex flex-wrap gap-4">

@@ -1,19 +1,19 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
-import teacher from './schemas/teacher'
-import note from './schemas/note'
-import notice from './schemas/notice'
+ 
+import teacher from './schemas/teacher.js'
+import note from './schemas/note.js'
+import notice from './schemas/notice.js'
 
 const schemaTypes = [teacher, note, notice]
-const projectId = 'agrubbem'; // Replace with your actual project ID from sanity.io/manage
-const dataset = 'production';
+
 
 export default defineConfig({
   name: 'default',
   title: 'SSHS Ghaghra Admin',
 
-  projectId: 'agrubbem', // TODO: Replace with your actual project ID from sanity.io/manage
+  projectId: 'agrubbem',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

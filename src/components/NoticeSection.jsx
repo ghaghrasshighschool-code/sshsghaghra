@@ -55,8 +55,8 @@ export default function NoticeSection() {
     if (notices.length === 0) return null; // Hide the section completely if no notices exist
 
     return (
-        <section id="notices" className="py-16 px-4 max-w-7xl mx-auto w-full animate-in fade-in duration-500">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-gray-200 pb-4">
+        <section id="notices" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full animate-in fade-in duration-500">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12 border-b border-gray-200 pb-4">
                 <div className="flex items-center space-x-3">
                     <Bell className="h-8 w-8 text-blue-600" />
                     <h2 className="text-3xl font-extrabold text-slate-900">Latest Announcements</h2>
@@ -69,7 +69,7 @@ export default function NoticeSection() {
                 </Link>
             </div>
             
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {notices.map((notice) => (
                     <div key={notice._id} className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow flex flex-col">
                         <div className="flex items-center space-x-2 text-sm font-semibold text-blue-600 mb-3">

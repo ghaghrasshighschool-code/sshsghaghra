@@ -45,7 +45,7 @@ export default function AllNotices() {
     const totalPages = Math.ceil(totalNotices / ITEMS_PER_PAGE);
 
     return (
-        <section className="min-h-screen py-20 px-4 max-w-7xl mx-auto w-full">
+        <section className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
             <div className="mb-8">
                 <Link 
                     to="/" 
@@ -69,7 +69,7 @@ export default function AllNotices() {
                 </div>
             ) : (
                 <>
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 animate-in fade-in duration-500">
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 animate-in fade-in duration-500">
                         {notices.map((notice) => (
                             <div key={notice._id} className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow flex flex-col">
                                 <div className="flex items-center space-x-2 text-sm font-semibold text-blue-600 mb-3">

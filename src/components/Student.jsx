@@ -60,7 +60,7 @@ export default function Student() {
     }, []);
 
     return (
-        <section id="Student" className="min-h-screen py-20 px-4 max-w-7xl mx-auto w-full">
+        <section id="Student" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
             <div className="text-center mb-12">
                 <h2 className="text-blue-600 font-bold tracking-wider uppercase text-sm">Student Portal</h2>
                 <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2">
@@ -82,7 +82,7 @@ export default function Student() {
 
             {/* Level 1: Display Classes */}
             {!isLoading && !activeClass && classesData.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 animate-in fade-in duration-500">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 animate-in fade-in duration-500">
                     {classesData.map((cls) => (
                         <div 
                             key={cls.id}
@@ -102,14 +102,17 @@ export default function Student() {
             {/* Level 2: Display Subjects for the selected Class */}
             {activeClass && !activeSubject && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <button 
-                        onClick={() => setActiveClass(null)}
+                    <button
+                        onClick={() => {
+                            setActiveClass(null);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
                         className="flex items-center text-blue-600 hover:text-blue-800 font-semibold mb-6 transition-colors"
                     >
                         <ArrowLeft className="h-5 w-5 mr-2" /> Back to Classes
                     </button>
-                    <h2 className="text-2xl font-bold text-slate-800 mb-6">{activeClass.name} Subjects</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-6">{activeClass.name} Subjects</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                         {activeClass.subjects.map((sub, idx) => (
                             <div 
                                 key={idx}
@@ -130,13 +133,16 @@ export default function Student() {
             {/* Level 3: Display Notes for the selected Subject */}
             {activeSubject && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <button 
-                        onClick={() => setActiveSubject(null)}
+                    <button
+                        onClick={() => {
+                            setActiveSubject(null);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
                         className="flex items-center text-blue-600 hover:text-blue-800 font-semibold mb-6 transition-colors"
                     >
                         <ArrowLeft className="h-5 w-5 mr-2" /> Back to {activeClass.name} Subjects
                     </button>
-                    <h2 className="text-2xl font-bold text-slate-800 mb-6">{activeSubject.name} Notes</h2>
+                    <h2 className="text-2xl font-bold text-slate-900 mb-6">{activeSubject.name} Notes</h2>
                     <div className="space-y-4">
                         {activeSubject.notes.map((note, idx) => (
                             <div key={idx} className="flex items-center justify-between bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">

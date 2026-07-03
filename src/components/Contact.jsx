@@ -5,7 +5,7 @@ export default function Contact() {
     const base = import.meta.env.BASE_URL;
 
     return (
-        <footer id="Contact" className="bg-slate-900 text-white pt-16 pb-8">
+        <footer id="Contact" className="bg-slate-800 text-white pt-16 pb-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                     
@@ -13,27 +13,27 @@ export default function Contact() {
                     <div className="space-y-4">
                         <div className="flex items-center space-x-2">
                             <img src={`${base}images.png`} alt="Logo" className="h-10 w-10 brightness-0 invert" />
-                            <span className="font-bold text-xl tracking-tight">SSHighschool Ghaghra</span>
+                            <span className="font-bold text-xl tracking-tight text-white">SSHighschool Ghaghra</span>
                         </div>
                         <p className="text-gray-400 text-sm leading-relaxed">
                             Dedicated to excellence in education and the holistic development of every student since our establishment.
                         </p>
                         <div className="flex space-x-4">
-                            <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+                            <a href="#!" onClick={(e) => e.preventDefault()} className="text-gray-400 hover:text-blue-400 transition-colors">
                                 <img 
                                     src={`${base}facebook.svg`}
                                     alt="Facebook" 
                                     className="h-5 w-5 opacity-70 hover:opacity-100 transition-opacity brightness-0 invert" 
                                 />
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+                            <a href="#!" onClick={(e) => e.preventDefault()} className="text-gray-400 hover:text-blue-400 transition-colors">
                                 <img 
                                     src={`${base}x.svg`}
                                     alt="X" 
                                     className="h-5 w-5 opacity-70 hover:opacity-100 transition-opacity brightness-0 invert" 
                                 />
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+                            <a href="#!" onClick={(e) => e.preventDefault()} className="text-gray-400 hover:text-blue-400 transition-colors">
                                 <img 
                                     src={`${base}instagram.svg`}
                                     alt="Instagram" 
@@ -98,7 +98,7 @@ export default function Contact() {
 
                 {/* Copyright */}
                 <div className="pt-8 border-t border-slate-800 text-center">
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-slate-400 text-sm">
                         © {new Date().getFullYear()} SS Highschool Ghaghra. All rights reserved.
                     </p>
                     <p className="text-gray-600 text-xs mt-2">

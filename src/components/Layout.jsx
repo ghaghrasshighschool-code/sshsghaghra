@@ -13,7 +13,7 @@ export default function Layout() {
     }, [pathname]);
 
     return (
-        <div className="relative min-h-screen text-black overflow-x-hidden pt-28 bg-slate-50">
+        <div className="relative min-h-screen text-slate-700 overflow-x-hidden pt-28 bg-slate-50">
             <Navbar />
             <NoticeMarquee />
             <main className="min-h-[50vh]">

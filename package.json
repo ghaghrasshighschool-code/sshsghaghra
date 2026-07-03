@@ -3,8 +3,8 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist --nojekyll",
-    "build": "vite build",
-    "dev": "vite",
+    "build": "vite build -c vite.frontend.config.js",
+    "dev": "vite -c vite.frontend.config.js",
     "studio": "sanity dev",
     "deploy-studio": "sanity deploy"
   },
@@ -14,8 +14,10 @@
     "lucide-react": "^1.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-is": "^18.3.1",
     "react-router-dom": "^6.30.3",
-    "sanity": "^3.71.1"
+    "sanity": "^3.71.1",
+    "styled-components": "^6.4.3"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
