@@ -1,8 +1,11 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
-import { schemaTypes } from './src/components/index.js'
+import teacher from './schemas/teacher'
+import note from './schemas/note'
+import notice from './schemas/notice'
 
+const schemaTypes = [teacher, note, notice]
 const projectId = 'agrubbem'; // Replace with your actual project ID from sanity.io/manage
 const dataset = 'production';
 

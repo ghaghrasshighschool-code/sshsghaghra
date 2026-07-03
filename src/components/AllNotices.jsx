@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Bell, Calendar, Paperclip, Loader2, ArrowLeft } from 'lucide-react';
 import { client } from '../sanityClient';
+import { Link } from 'react-router-dom';
 
 export default function AllNotices() {
     const [notices, setNotices] = useState([]);
@@ -46,16 +47,12 @@ export default function AllNotices() {
     return (
         <section className="min-h-screen py-20 px-4 max-w-7xl mx-auto w-full">
             <div className="mb-8">
-                <a 
-                    href="#home" 
+                <Link 
+                    to="/" 
                     className="flex items-center text-blue-600 hover:text-blue-800 font-semibold mb-6 transition-colors w-fit"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
                 >
                     <ArrowLeft className="h-5 w-5 mr-2" /> Back to Home
-                </a>
+                </Link>
                 <div className="flex items-center space-x-3 border-b border-gray-200 pb-4">
                     <Bell className="h-8 w-8 text-blue-600" />
                     <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">All Announcements</h1>

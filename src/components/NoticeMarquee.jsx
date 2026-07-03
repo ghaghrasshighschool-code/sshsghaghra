@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { client } from '../sanityClient';
 import { Bell } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
 export default function NoticeMarquee() {
     const [notices, setNotices] = useState([]);
 
@@ -37,7 +38,7 @@ export default function NoticeMarquee() {
                     .animate-marquee-slow {
                         display: inline-block;
                         white-space: nowrap;
-                        animation: marquee-scroll 30s linear infinite;
+                        animation: marquee-scroll 17s linear infinite;
                     }
                     .animate-marquee-slow:hover {
                         animation-play-state: paused;
@@ -51,13 +52,13 @@ export default function NoticeMarquee() {
                         <span>Latest Updates</span>
                     </div>
                     
-                    <div className="relative flex overflow-hidden w-full pointer-events-auto cursor-default">
+                    <Link to="/notices" className="relative flex overflow-hidden w-full cursor-pointer group">
                         <div className="animate-marquee-slow">
-                            <span className="text-sm font-semibold italic">
+                            <span className="text-sm font-semibold italic group-hover:text-yellow-300 transition-colors">
                                 {scrollingText} &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
                             </span>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </>

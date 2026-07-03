@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Contact() {
     const base = import.meta.env.BASE_URL;
@@ -46,18 +47,14 @@ export default function Contact() {
                     <div>
                         <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
                         <ul className="space-y-3">
-                            {['Home', 'About', 'Student', 'Teacher', 'Admissions'].map((item) => (
-                                <li key={item}>
-                                    <a 
-                                        href={`#${item.toLowerCase()}`} 
+                            {[{name: 'Home', path: '/'}, {name: 'About', path: '/about'}, {name: 'Student', path: '/student'}, {name: 'Teacher', path: '/teacher'}, {name: 'Notices', path: '/notices'}].map((item) => (
+                                <li key={item.name}>
+                                    <Link 
+                                        to={item.path}
                                         className="text-gray-400 hover:text-white transition-colors text-sm"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
-                                        }}
                                     >
-                                        {item}
-                                    </a>
+                                        {item.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
