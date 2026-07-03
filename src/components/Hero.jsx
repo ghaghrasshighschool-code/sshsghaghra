@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 
-const base = import.meta.env.BASE_URL;
-const images = [
-  `${base}slide1.jpeg`, 
-  `${base}slide2.jpeg`, 
-  `${base}slide3.jpeg`
-];
+// Dynamically import all common image file types from the public/images directory.
+const imageModules = import.meta.glob('/public/images/*.{jpg,jpeg,png,svg,gif}', { eager: true, as: 'url' });
+const images = Object.values(imageModules);
 
 export default function Hero() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     // Auto-scroll every 5 seconds
     useEffect(() => {
+        // Only set up the interval if there are images to scroll through.
+        if (images.length === 0) return;
+
         const timer = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % images.length);
         }, 5000);
         return () => clearInterval(timer);
-    }, []);
+    }, [images.length]);
 
     return (
         <section id="Home" className="min-h-screen flex items-center pt-16 px-4 max-w-7xl mx-auto">
@@ -24,6 +24,7 @@ export default function Hero() {
                 
                 {/* Left Side: Image Scroller (Dynamic Aspect Ratio) */}
                 <div className="relative aspect-4/5 md:aspect-4/3 rounded-2xl overflow-hidden shadow-2xl group">
+                    {images.length > 0 ? (
                     {images.map((img, index) => (
                         <div
                             key={index}
@@ -38,20 +39,27 @@ export default function Hero() {
                             />
                         </div>
                     ))}
+                    ) : (
+                        <div className="w-full h-full bg-slate-200 flex items-center justify-center">
+                            <span className="text-slate-500">No images found.</span>
+                        </div>
+                    )}
 
                     {/* Navigation Dots */}
-                    <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-10">
-                        {images.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setCurrentIndex(index)}
-                                className={`w-2 h-2 rounded-full transition-all ${
-                                    index === currentIndex ? 'bg-blue-500 w-6' : 'bg-white/50 hover:bg-white/80'
-                                }`}
-                                aria-label={`Go to slide ${index + 1}`}
-                            />
-                        ))}
-                    </div>
+                    {images.length > 1 && (
+                        <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-10">
+                            {images.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentIndex(index)}
+                                    className={`w-2 h-2 rounded-full transition-all ${
+                                        index === currentIndex ? 'bg-blue-500 w-6' : 'bg-white/50 hover:bg-white/80'
+                                    }`}
+                                    aria-label={`Go to slide ${index + 1}`}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 {/* Right Side: About Content */}

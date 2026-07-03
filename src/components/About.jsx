@@ -10,11 +10,14 @@ export default function AboutSection() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
+        // Only set up the interval if there are images to scroll through.
+        if (images.length === 0) return;
+
         const timer = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % images.length);
         }, 5000);
         return () => clearInterval(timer);
-    }, []);
+    }, [images.length]);
 
     return (
         <section id="About" className="min-h-screen flex items-center py-16 px-4 max-w-7xl mx-auto">
@@ -44,6 +47,7 @@ export default function AboutSection() {
 
                 {/* Right Side: Image Scroller */}
                 <div className="relative aspect-4/5 md:aspect-4/3 rounded-2xl overflow-hidden shadow-2xl group order-1 lg:order-2">
+                    {images.length > 0 ? (
                     {images.map((img, index) => (
                         <div
                             key={index}
@@ -58,18 +62,25 @@ export default function AboutSection() {
                             />
                         </div>
                     ))}
+                    ) : (
+                        <div className="w-full h-full bg-slate-200 flex items-center justify-center">
+                            <span className="text-slate-500">No images found.</span>
+                        </div>
+                    )}
 
-                    <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-10">
-                        {images.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setCurrentIndex(index)}
-                                className={`w-2 h-2 rounded-full transition-all ${
-                                    index === currentIndex ? 'bg-blue-500 w-6' : 'bg-white/50 hover:bg-white/80'
-                                }`}
-                            />
-                        ))}
-                    </div>
+                    {images.length > 1 && (
+                        <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-10">
+                            {images.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentIndex(index)}
+                                    className={`w-2 h-2 rounded-full transition-all ${
+                                        index === currentIndex ? 'bg-blue-500 w-6' : 'bg-white/50 hover:bg-white/80'
+                                    }`}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </section>
