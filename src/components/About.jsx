@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 
-const base = import.meta.env.BASE_URL;
-const images = [
-  `${base}slide1.jpeg`, 
-  `${base}slide2.jpeg`, 
-  `${base}slide3.jpeg`
-];
+// Dynamically import all common image file types from the public/images directory.
+// The `eager: true` option imports them immediately, and `as: 'url'` ensures we get the public URL for each image.
+const imageModules = import.meta.glob('/public/images/*.{jpg,jpeg,png,svg,gif}', { eager: true, as: 'url' });
+// The result is an object where keys are file paths and values are the public URLs. We just need the URLs.
+const images = Object.values(imageModules);
 
 export default function AboutSection() {
     const [currentIndex, setCurrentIndex] = useState(0);
